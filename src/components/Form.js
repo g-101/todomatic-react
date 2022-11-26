@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function Form(props) {
+  const [name, setName] = useState('');
+  const handleChange = event => {
+    setName(event.target.value);
+  };
+
   const handleSubmit = event => {
     event.preventDefault();
-    props.onAddTask('Hello!');
+    // envia os dados para o parent
+    props.onAddTask(name);
+    // boa pratica: limpar os campos apos o envio
+    setName('');
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <h2 className="label-wrapper">
@@ -18,6 +27,8 @@ function Form(props) {
         className="input input__lg"
         name="text"
         autoComplete="off"
+        value={name}
+        onChange={handleChange}
       />
       <button type="submit" className="btn btn__primary btn__lg">
         Add
