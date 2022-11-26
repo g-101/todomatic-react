@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 
 function Form(props) {
-  const [name, setName] = useState('');
+  const [nameTask, setNameTask] = useState('');
   const handleChange = event => {
-    setName(event.target.value);
+    setNameTask(event.target.value);
   };
 
   const handleSubmit = event => {
     event.preventDefault();
     // envia os dados para o parent
-    props.onAddTask(name);
+    props.onAddTask(nameTask);
     // boa pratica: limpar os campos apos o envio
-    setName('');
+    setNameTask('');
   };
 
   return (
@@ -27,7 +27,7 @@ function Form(props) {
         className="input input__lg"
         name="text"
         autoComplete="off"
-        value={name}
+        value={nameTask}
         onChange={handleChange}
       />
       <button type="submit" className="btn btn__primary btn__lg">

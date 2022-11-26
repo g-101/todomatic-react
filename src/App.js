@@ -1,19 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { nanoid } from 'nanoid';
+
 import './App.css';
 import Form from './components/Form';
 import FilterButton from './components/FilterButton';
 import Todo from './components/Todo';
 
 function App(props) {
-  const addTask = name => {
-    alert(name);
-    console.log('To no pai: ', name);
-    return name;
-  };
+  const [tasks, setTasks] = useState(props.tasks);
 
-  // const taskList = props.tasks?.map(task => (
-  //   <Todo id={task.id} name={task.name} completed={task.completed} />
-  // ));
+  const addTask = name => {
+    const newTask = { id: `todo-${nanoid()}`, name, completed: false };
+    setTasks([newTask, ...tasks]);
+  };
+  const taskList = tasks.map(task => (
+    <Todo id={task.id} name={task.name} completed={task.completed} />
+  ));
+  const listHeadingText = `${taskList.length} ${
+    taskList.length !== 1 ? 'tasks' : 'task'
+  } remaining`;
+
   return (
     <div className="todoapp stack-large">
       <h1>TodoMatic</h1>
@@ -23,11 +29,9 @@ function App(props) {
         <FilterButton />
         <FilterButton />
       </div>
-      <h2 id="list-heading">{props.tasks.length} tasks remaining</h2>
+      <h2 id="list-heading">{listHeadingText}</h2>
       <ul className="todo-list stack-large stack-exception" aria-labelledby="list-heading">
-        {props.tasks.map(task => (
-          <Todo key={task.id} id={task.id} name={task.name} completed={task.completed} />
-        ))}
+        {taskList}
       </ul>
     </div>
   );
