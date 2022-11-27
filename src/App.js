@@ -15,12 +15,32 @@ function App(props) {
       return 0;
     }
     const newTask = { id: `todo-${nanoid()}`, name: name, completed: false };
-
     setTasks([newTask, ...tasks]);
   };
+
+  const toggleTaskCompleted = id => {
+    const updatedTasks = tasks.map(task => {
+      // se o task tem a msm id edita
+      if (id === task.id) {
+        // use object spread para criar um novo objeto
+
+        return { ...task, completed: !task.completed };
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+  };
+
   const taskList = tasks.map(task => (
-    <Todo key={task.id} id={task.id} name={task.name} completed={task.completed} />
+    <Todo
+      key={task.id}
+      id={task.id}
+      name={task.name}
+      completed={task.completed}
+      toggleTaskCompleted={toggleTaskCompleted}
+    />
   ));
+
   const listHeadingText = `${taskList.length} ${
     taskList.length !== 1 ? 'tasks' : 'task'
   } remaining`;
