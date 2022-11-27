@@ -10,11 +10,16 @@ function App(props) {
   const [tasks, setTasks] = useState(props.tasks);
 
   const addTask = name => {
-    const newTask = { id: `todo-${nanoid()}`, name, completed: false };
+    if (!name || parseInt(name)) {
+      alert('Dados incorretos');
+      return 0;
+    }
+    const newTask = { id: `todo-${nanoid()}`, name: name, completed: false };
+
     setTasks([newTask, ...tasks]);
   };
   const taskList = tasks.map(task => (
-    <Todo id={task.id} name={task.name} completed={task.completed} />
+    <Todo key={task.id} id={task.id} name={task.name} completed={task.completed} />
   ));
   const listHeadingText = `${taskList.length} ${
     taskList.length !== 1 ? 'tasks' : 'task'
