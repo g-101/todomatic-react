@@ -6,7 +6,8 @@ import App from './App';
 const DATA = [
   { id: 'todo-0', name: 'Eat', completed: true },
   { id: 'todo-1', name: 'Sleep', completed: false },
-  { id: 'todo-2', name: 'Repeat', completed: false },
+  { id: 'todo-2', name: 'Code', completed: false },
+  { id: 'todo-3', name: 'Repeat', completed: false },
 ];
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
