@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 function Form(props) {
   const [name, setName] = useState('');
+
   const handleChange = event => {
     setName(event.target.value);
   };
@@ -11,7 +12,7 @@ function Form(props) {
     // envia os dados para o parent
     props.onAddTask(name);
     // boa pratica: limpar os campos apos o envio
-    setName('');
+    // setName('');
   };
 
   return (

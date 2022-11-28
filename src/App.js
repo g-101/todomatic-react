@@ -10,12 +10,23 @@ function App(props) {
   const [tasks, setTasks] = useState(props.tasks);
 
   const addTask = name => {
-    if (!name || parseInt(name)) {
+    if (!name || parseInt(name) || name === '0') {
       alert('Dados incorretos');
-      return 0;
+      return false;
     }
     const newTask = { id: `todo-${nanoid()}`, name: name, completed: false };
     setTasks([newTask, ...tasks]);
+  };
+
+  const editTask = (id, newName) => {
+    const editedTaskList = tasks.map(task => {
+      // se o task tem a msm id edita o task
+      if (id === task.id) {
+        return { ...task, name: newName };
+      }
+      return task;
+    });
+    setTasks(editedTaskList);
   };
 
   const deleteTask = id => {
@@ -25,7 +36,6 @@ function App(props) {
 
   const toggleTaskCompleted = id => {
     const updatedTasks = tasks.map(task => {
-      // se o task tem a msm id edita
       if (id === task.id) {
         // use object spread para criar um novo objeto
 
@@ -44,6 +54,7 @@ function App(props) {
       completed={task.completed}
       toggleTaskCompleted={toggleTaskCompleted}
       deleteTask={deleteTask}
+      editTask={editTask}
     />
   ));
 
